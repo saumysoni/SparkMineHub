@@ -78,3 +78,11 @@ MineHub is a Django-based platform designed to develop a social connection for m
 ### ChatBot
 ![image](https://github.com/user-attachments/assets/9d6a0465-9514-4721-a2aa-59c035f72947)
 
+## Future Improvements
+- **Multi-Factor Authentication**: Adding an extra layer of security requiring users to verify their identity via OTP or authentication apps during registration and login.
+- **Post Interaction**: Add reaction, comment, share and report post functionality for improved user engagement.
+- **Improved Chatbot**:
+   - Introduce voice interaction for more natural communication with the chatbot.
+   - Implement web scraping to automatically update the chatbot with fresh data from mining websites and news sources.
+
+
