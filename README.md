@@ -23,7 +23,7 @@ MineHub is a Django-based platform designed to develop a social connection for m
 - Python 3.x
 - Django 4.x
 - PostgreSQL/MySQL (or SQLite for local development)
-- AWS account (for S3 bucket and RDS setup)
+- AWS account (for S3 bucket, RDS setup, EC2, Sagemaker, Bedrock, Comprehend and Rekognition)
 
 ### Steps to Install and Run Locally
 
