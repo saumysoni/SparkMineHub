@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post List - MineHub</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #121212;
+            color: #e0e0e0;
+            font-family: 'Arial', sans-serif;
+        }
+        .header {
+            background-color: #333;
+            color: #ffffff;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .header a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .post-card {
+            background-color: #1e1e1e;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 60%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .post-card img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 0 auto; /* Center the image */
+        }
+        .post-content {
+            margin-top: 10px;
+        }
+        .post-author {
+            color: #007bff;
+        }
+        .post-date {
+            color: #888;
+        }
+        .chat-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .chat-button {
+            background-color: #007bff; /* Button color */
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-button img {
+            width: 30px;
+            height: 30px;
+        }
+
+        /* Cloud-shaped dialog box */
+        .chat-dialog-box {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 10px 20px;
+            position: absolute;
+            bottom: 80px; /* Above the chat button */
+            right: 0px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            display: none; /* Hidden by default */
+            white-space: nowrap;
+            z-index: 999;
+            color: #333;
+            font-size: 14px;
+        }
+
+        /* Cloud tail */
+        .chat-dialog-box::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: #ffffff transparent transparent transparent;
+        }
+        @media (max-width: 768px) {
+            .post-card {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">MineHub</a>
+            <div class="collapse navbar-collapse">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="{% url 'post_create' %}">Create Post</a>
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Post List -->
+    <div class="container mt-5 pt-5">
+        <h1 class="text-center mb-4">Posts</h1>
+        {% for post in posts %}
+            <div class="post-card">
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                {% endif %}
+                <div class="post-content">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.content|slice:":200" }}{% if post.content|length > 200 %}...{% endif %}</p>
+                    <p class="post-author">Posted by {{ post.author.username }}</p>
+                    <p class="post-date">{{ post.created_at|date:"F j, Y, g:i a" }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p>No posts available.</p>
+        {% endfor %}
+    </div>
+    <!-- Circular Button and Dialog Box -->
+    <div class="chat-button-container">
+        <div class="chat-dialog-box" id="chatDialog">
+            Any questions? <br> <a href="http://54.152.252.14:8000/" target="_blank">Click here to ask me</a>
+        </div>
+        <button class="chat-button" id="chatButton">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/chat.png" alt="Chat Icon" />
+        </button>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById("chatButton").addEventListener("click", function() {
+            var dialog = document.getElementById("chatDialog");
+            if (dialog.style.display === "none" || dialog.style.display === "") {
+                dialog.style.display = "block";  // Show the dialog box
+            } else {
+                dialog.style.display = "none";   // Hide the dialog box
+            }
+        });
+    </script>
+</body>
+</html>

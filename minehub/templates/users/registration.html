@@ -1,0 +1,155 @@
+{% load form_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - MineHub</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #121212; /* Dark background */
+            color: #e0e0e0; /* Light text */
+            font-family: 'Arial', sans-serif;
+        }
+        .header {
+            background-color: #333;
+            color: #ffffff;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .header a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .register-card {
+            background-color: #1e1e1e; /* Dark card background */
+            border: none;
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 100px auto;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        .register-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        .form-control {
+            background-color: #333; /* Input field background */
+            color: #e0e0e0; /* Input field text */
+            border: 1px solid #555;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            background-color: #444;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 12px 20px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            flex: 0 0 180px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .info-icon {
+            font-size: 1.2rem;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .info-tooltip {
+            display: none;
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 4px;
+            position: absolute;
+            transform: translateY(10px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .info-icon:hover + .info-tooltip {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="/">MineHub</a>
+    </header>
+
+    <!-- Registration Form Container -->
+    <div class="container">
+        <div class="register-card">
+            <h1>Register</h1>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Username Field with Tooltip -->
+                <div class="form-group">
+                    <label for="id_username">Username</label>
+                    {{ form.username|addclass:"form-control" }}
+                    <i class="info-icon" data-bs-toggle="tooltip" title="Username must be unique and contain at least 3 characters.">i</i>
+                    <div class="info-tooltip">
+                        Username must be unique and contain at least 3 characters.
+                    </div>
+                </div>
+
+                <!-- Password Field with Tooltip -->
+                <div class="form-group">
+                    <label for="id_password">Password</label>
+                    {{ form.password1|addclass:"form-control" }}
+                    <i class="info-icon" data-bs-toggle="tooltip" title="Password must contain at least 8 characters, with one number and one special character.">i</i>
+                    <div class="info-tooltip">
+                        Password must contain at least 8 characters, including one number and one special character.
+                    </div>
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div class="form-group">
+                    <label for="id_password2">Confirm Password</label>
+                    {{ form.password2|addclass:"form-control" }}
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+
+            <p class="mt-3">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
