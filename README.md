@@ -60,6 +60,52 @@ MineHub is a Django-based platform designed to develop a social connection for m
     ```bash
     python manage.py runserver
 
+## Steps to setup APIs
+1. **Create and Activate a Virtual Environment**:
+   ```bash
+   cd APIs
+   python3 -m venv api_env
+   source api_env/bin/activate  # On Windows use `api_env\Scripts\activate`
+
+2. **Install Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+
+3. **Run the all 3 APIs using flask**:
+    ```bash
+    python API.py # This runs the explicit image check for images using AWS Rekognition
+    python text_API.py # This runs the profanity check on the text data
+    python text_relevence_API.py # This runs the text_relevence_API for which you will be required to make a AWS comprehend endpoint
+
+4. **Test APIs**:
+    ```bash
+    python check.py # Change the URL to the API url and test the API using an Image on the S3
+    python text_check.py # Change the URL to the text_API url 
+    python text_relevence_check.py # Change the URL to the text_relevence_API url
+
+## Steps to setup Chatbot
+1. **Create and Activate a Virtual Environment**:
+   ```bash
+   cd Chatbot
+   python3 -m venv chatbot_env
+   source chatbot_env/bin/activate  # On Windows use `chatbot_env\Scripts\activate`
+
+2. **Install Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+
+3. **Install Model**:
+   ```bash
+   git lfs install
+   git clone https://huggingface.co/MBZUAI/LaMini-Flan-T5-783M
+
+4. **Move the knowledge base PDFs to doc folder**:
+
+5. **Run Chatbot using chainlit**:
+   ```bash
+   python embeddings.py
+   chainlit run app.py # add --host: Specifies a different host to run the server on / --port: Specifies a different port to run the server on as required
+
 ## Application Interface
 
 ### Registration Page
@@ -86,48 +132,4 @@ MineHub is a Django-based platform designed to develop a social connection for m
    - Implement web scraping to automatically update the chatbot with fresh data from mining websites and news sources.
 - **Market Place for miners**: A place where miners and companies come to buy and sell mining equipment
 
-## Setup APIs
-1. **Create and Activate a Virtual Environment**:
-   ```bash
-   cd APIs
-   python3 -m venv api_env
-   source api_env/bin/activate  # On Windows use `api_env\Scripts\activate`
 
-2. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-
-3. **Run the all 3 APIs using flask**:
-    ```bash
-    python API.py # This runs the explicit image check for images using AWS Rekognition
-    python text_API.py # This runs the profanity check on the text data
-    python text_relevence_API.py # This runs the text_relevence_API for which you will be required to make a AWS comprehend endpoint
-
-4. **Test APIs**:
-    ```bash
-    python check.py # Change the URL to the API url and test the API using an Image on the S3
-    python text_check.py # Change the URL to the text_API url 
-    python text_relevence_check.py # Change the URL to the text_relevence_API url
-
-## Setup Chatbot
-1. **Create and Activate a Virtual Environment**:
-   ```bash
-   cd Chatbot
-   python3 -m venv chatbot_env
-   source chatbot_env/bin/activate  # On Windows use `chatbot_env\Scripts\activate`
-
-2. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-
-3. **Install Model**:
-   ```bash
-   git lfs install
-   git clone https://huggingface.co/MBZUAI/LaMini-Flan-T5-783M
-
-4. **Move the knowledge base PDFs to doc folder**:
-
-5. **Run Chatbot using chainlit**:
-   ```bash
-   python embeddings.py
-   chainlit run app.py # add --host: Specifies a different host to run the server on / --port: Specifies a different port to run the server on as required
